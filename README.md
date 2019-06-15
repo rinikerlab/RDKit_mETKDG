@@ -1,39 +1,25 @@
-# RDKit Docker Image
+# RDKit_mETKDG
 
-[RDKit](https://github.com/rdkit/rdkit) is a collection of cheminformatics and machine-learning software written in C++ and Python.
+This Docker image provides a Debian distribution with Python 3 and all other dependencies installed via the Debian package manager. A modified version of RDKit from the master branch (as of April 2019) is compiled from source.
 
-This Docker image provides a Debian distribution with Python 3 and all other dependencies installed via the Debian package manager. RDKit is compiled from source.
+In particular, the modifications are for RDKit's experimental torsion knowledge distance geometry ([ETKDG](https://pubs.acs.org/doi/abs/10.1021/acs.jcim.5b00654)) conformer generator in order to improve sampling of macrocyclic molecules.
 
-This Docker image is designed to provide a lightweight RDKit installation, without any unnecessary build tools or package management infrastructure in the final image. Other images may inherit from it, or use it as an earlier stage in a multi-stage build process. See the [mcs07/postgres-rdkit](https://github.com/mcs07/docker-postgres-rdkit) image for an example of this.
+## Build Image
+`docker build -t rdkit .`
 
-For a more complete environment that is easier to work with but results in a larger image, you may be better served by using a [miniconda](https://hub.docker.com/r/continuumio/miniconda3/) image and using `conda install` to add RDKit and other dependencies.
+## Run Container
+To bring up a interactive terminal:
+`docker run -it --rm rdkit:latest`
 
-## Running
+Or invoke the python 3 interpreter via:
+`docker run -it --rm rdkit:latest python`
 
-Run `rdkit` container with an interactive shell:
-
-    docker run -it --rm mcs07/rdkit:latest /bin/bash
-
-Or a python interpreter:
-
-    docker run -it --rm mcs07/rdkit:latest python3
-
-## Building
-
-A multi-stage docker build is used to produce a lightweight production image without all the build dependencies. To build, run:
-
-    docker build -t rdkit .
-
-## Related Projects
-
-- https://github.com/InformaticsMatters/docker-rdkit
+## Examples
+Example python scripts are available in the [examples folder](./examples/) with README.
 
 
+## Maintainer
+Shuzhe Wang
 
-------------------------------
-
-time docker build -t rdkit .
-
-docker run -it --rm rdkit:latest python3
-docker run -it --rm rdkit:latest
-
+## Acknowledgement
+This docker image is created with https://github.com/mcs07/docker-rdkit as a template.
