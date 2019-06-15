@@ -1,6 +1,6 @@
 FROM debian:stretch AS rdkit-build-env
 
-RUN apt-get update 
+RUN apt-get update
 RUN apt-get install -yq --no-install-recommends \
     ca-certificates \
     build-essential \
@@ -56,11 +56,14 @@ RUN make -j $(nproc) \
 
 
 RUN pip3 install setuptools && pip3 install  scipy  && pip3 install scikit-learn Cython mdtraj
+
+
 WORKDIR /
 RUN git clone https://github.com/hjuinj/cpeptools.git
 WORKDIR /cpeptools
 RUN pip3 install -e .
 
 
-#COPY scripts /scripts
-#WORKDIR /scripts
+COPY .bashrc /root/.bashrc
+COPY examples /examples
+WORKDIR /examples
